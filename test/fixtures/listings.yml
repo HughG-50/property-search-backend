@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  domain_listing_id: 1
+  address: MyString
+  land_area: 1
+  headline_desc: MyString
+  summary_desc: MyText
+  listing_url: MyString
+  display_price: MyString
+  agency_name: MyString
+  agent: MyString
+
+two:
+  domain_listing_id: 1
+  address: MyString
+  land_area: 1
+  headline_desc: MyString
+  summary_desc: MyText
+  listing_url: MyString
+  display_price: MyString
+  agency_name: MyString
+  agent: MyString
