@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
-  resources :listings
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  # root 'listings#index'
+  get 'listings', to: 'listings#index'
+  get 'listings/ryde', to: 'listings#ryde_index'
+  get 'listings/strathfield', to: 'listings#strathfield_index'
 end
