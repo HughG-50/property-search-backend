@@ -49,3 +49,5 @@ gem "httparty", "~> 0.18.1"
 gem "dotenv-rails", "~> 2.7"
 
 gem "json", "~> 2.3"
+
+gem "rack-cors", "~> 1.1"
