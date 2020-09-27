@@ -14,8 +14,8 @@ class Listing < ApplicationRecord
                 minBedrooms: 1,
                 minBathrooms: 1,
                 minCarspaces: 0,
-                minLandArea: 580,
-                maxPrice: 2000000,
+                minLandArea: 750,
+                maxPrice: 2200000,
                 pageSize: 100,
                 locations: [
                   {
@@ -167,7 +167,7 @@ class Listing < ApplicationRecord
                 minBedrooms: 1,
                 minBathrooms: 1,
                 minCarspaces: 0,
-                minLandArea: 580,
+                minLandArea: 600,
                 maxPrice: 2000000,
                 pageSize: 100,
                 locations: [
@@ -282,11 +282,132 @@ class Listing < ApplicationRecord
         save_json_url(response_json)
     end
 
+        
+    def self.populate_parramatta_listings
+      Listing.destroy_all
+
+      search_endpoint = "https://api.domain.com.au/v1/listings/residential/_search"
+      request = HTTParty.post(
+        search_endpoint, 
+        :headers => { "content-type": "application/json", "X-API-Key": ENV["DOMAIN_API_KEY"]},
+        :body => {
+          listingType: "Sale",
+          propertyTypes: ["House"],
+          minBedrooms: 1,
+          minBathrooms: 1,
+          minCarspaces: 0,
+          minLandArea: 600,
+          maxPrice: 2200000,
+          pageSize: 100,
+          locations: [
+            {
+              state: "NSW",
+              region: "",
+              area: "",
+              suburb: "Epping",
+              postCode: "2121",
+              includeSurroundingSuburbs: true
+            },
+            {
+              state: "NSW",
+              region: "",
+              area: "",
+              suburb: "Dundas Valley",
+              postCode: "2117",
+              includeSurroundingSuburbs: true
+            },
+            {
+              state: "NSW",
+              region: "",
+              area: "",
+              suburb: "Telopea",
+              postCode: "2117",
+              includeSurroundingSuburbs: true
+            },
+            {
+              state: "NSW",
+              region: "",
+              area: "",
+              suburb: "Melrose Park",
+              postCode: "2114",
+              includeSurroundingSuburbs: true
+            },
+            {
+              state: "NSW",
+              region: "",
+              area: "",
+              suburb: "Ermington",
+              postCode: "2115",
+              includeSurroundingSuburbs: true
+            },
+            {
+              state: "NSW",
+              region: "",
+              area: "",
+              suburb: "Rydalmere",
+              postCode: "2116",
+              includeSurroundingSuburbs: true
+            },
+            {
+              state: "NSW",
+              region: "",
+              area: "",
+              suburb: "Carlingford",
+              postCode: "2118",
+              includeSurroundingSuburbs: true
+            },
+            {
+              state: "NSW",
+              region: "",
+              area: "",
+              suburb: "Dundas",
+              postCode: "2117",
+              includeSurroundingSuburbs: true
+            },
+            {
+              state: "NSW",
+              region: "",
+              area: "",
+              suburb: "North Parramatta",
+              postCode: "2151",
+              includeSurroundingSuburbs: true
+            },
+            {
+              state: "NSW",
+              region: "",
+              area: "",
+              suburb: "Harris Park",
+              postCode: "2150",
+              includeSurroundingSuburbs: true
+            },
+            {
+              state: "NSW",
+              region: "",
+              area: "",
+              suburb: "Oatlands",
+              postCode: "2117",
+              includeSurroundingSuburbs: true
+            },
+            {
+              state: "NSW",
+              region: "",
+              area: "",
+              suburb: "North Rocks",
+              postCode: "2151",
+              includeSurroundingSuburbs: true
+            },
+          ]
+        }.to_json
+      )
+      response_json = JSON.parse(request.body)
+      save_json_url(response_json)
+    end
+
     private
 
     def self.save_json_url(response_json)
         response_json.map do |response_json_item|
-            if ((response_json_item["listing"]["headline"].downcase || response_json_item["listing"]["summaryDescription"].downcase).include? ("duplex"||"development"))
+            if ((response_json_item["listing"]["headline"].downcase || response_json_item["listing"]["summaryDescription"].downcase).include? ("duplex"||"development"||"redevelop"||"stca"||"potential"||"da"||"develop"))
                 listing = Listing.new
                 listing.domain_listing_id = response_json_item["listing"]["id"]
                 listing.address = response_json_item["listing"]["propertyDetails"]["displayableAddress"]
