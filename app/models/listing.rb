@@ -408,7 +408,7 @@ class Listing < ApplicationRecord
     def self.save_json_url(response_json)
         search_terms = ["duplex", "development", "redevelop", "stca", "develop"]
         response_json.map do |response_json_item|
-            if ((response_json_item["listing"]["headline"].downcase || response_json_item["listing"]["summaryDescription"].downcase).match(Regexp.union(search_terms))
+            if ((response_json_item["listing"]["headline"].downcase || response_json_item["listing"]["summaryDescription"].downcase).match(Regexp.union(search_terms)))
                 listing = Listing.new
                 listing.domain_listing_id = response_json_item["listing"]["id"]
                 listing.address = response_json_item["listing"]["propertyDetails"]["displayableAddress"]
