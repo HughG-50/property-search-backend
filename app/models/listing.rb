@@ -126,14 +126,6 @@ class Listing < ApplicationRecord
                     state: "NSW",
                     region: "",
                     area: "",
-                    suburb: "Epping",
-                    postCode: "2121",
-                    includeSurroundingSuburbs: false
-                  },
-                  {
-                    state: "NSW",
-                    region: "",
-                    area: "",
                     suburb: "Gladesville",
                     postCode: "2111",
                     includeSurroundingSuburbs: false
