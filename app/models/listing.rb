@@ -10,9 +10,9 @@ class Listing < ApplicationRecord
             :headers => { "content-type": "application/json", "X-API-Key": ENV["DOMAIN_API_KEY"]},
             :body => {
                 listingType: "Sale",
-                propertyTypes: ["House"],
-                minBedrooms: 1,
-                minBathrooms: 1,
+                propertyTypes: ["House", "DevelopmentSite", "NewHouseLand", "Duplex", "SemiDetached", "VacantLand" ],
+                minBedrooms: 0,
+                minBathrooms: 0,
                 minCarspaces: 0,
                 minLandArea: 750,
                 maxPrice: 2200000,
@@ -24,7 +24,7 @@ class Listing < ApplicationRecord
                     area: "",
                     suburb: "Eastwood",
                     postCode: "2122",
-                    includeSurroundingSuburbs: true
+                    includeSurroundingSuburbs: false
                   },
                   {
                     state: "NSW",
@@ -32,7 +32,7 @@ class Listing < ApplicationRecord
                     area: "",
                     suburb: "East Ryde",
                     postCode: "2113",
-                    includeSurroundingSuburbs: true
+                    includeSurroundingSuburbs: false
                   },
                   {
                     state: "NSW",
@@ -40,7 +40,7 @@ class Listing < ApplicationRecord
                     area: "",
                     suburb: "Top Ryde",
                     postCode: "2122",
-                    includeSurroundingSuburbs: true
+                    includeSurroundingSuburbs: false
                   },
                   {
                     state: "NSW",
@@ -48,7 +48,7 @@ class Listing < ApplicationRecord
                     area: "",
                     suburb: "West Ryde",
                     postCode: "2114",
-                    includeSurroundingSuburbs: true
+                    includeSurroundingSuburbs: false
                   },
                   {
                     state: "NSW",
@@ -56,7 +56,7 @@ class Listing < ApplicationRecord
                     area: "",
                     suburb: "North Ryde",
                     postCode: "2113",
-                    includeSurroundingSuburbs: true
+                    includeSurroundingSuburbs: false
                   },
                   {
                     state: "NSW",
@@ -64,7 +64,7 @@ class Listing < ApplicationRecord
                     area: "",
                     suburb: "Ryde",
                     postCode: "2112",
-                    includeSurroundingSuburbs: true
+                    includeSurroundingSuburbs: false
                   },
                   {
                     state: "NSW",
@@ -72,7 +72,7 @@ class Listing < ApplicationRecord
                     area: "",
                     suburb: "Meadowbank",
                     postCode: "2114",
-                    includeSurroundingSuburbs: true
+                    includeSurroundingSuburbs: false
                   },
                   {
                     state: "NSW",
@@ -80,7 +80,7 @@ class Listing < ApplicationRecord
                     area: "",
                     suburb: "Marsfield",
                     postCode: "2122",
-                    includeSurroundingSuburbs: true
+                    includeSurroundingSuburbs: false
                   },
                   {
                     state: "NSW",
@@ -88,7 +88,7 @@ class Listing < ApplicationRecord
                     area: "",
                     suburb: "Macquarie Park",
                     postCode: "2113",
-                    includeSurroundingSuburbs: true
+                    includeSurroundingSuburbs: false
                   },
                   {
                     state: "NSW",
@@ -96,7 +96,7 @@ class Listing < ApplicationRecord
                     area: "",
                     suburb: "Putney",
                     postCode: "2112",
-                    includeSurroundingSuburbs: true
+                    includeSurroundingSuburbs: false
                   },
                   {
                     state: "NSW",
@@ -104,7 +104,7 @@ class Listing < ApplicationRecord
                     area: "",
                     suburb: "Denistone",
                     postCode: "2114",
-                    includeSurroundingSuburbs: true
+                    includeSurroundingSuburbs: false
                   },
                   {
                     state: "NSW",
@@ -112,7 +112,7 @@ class Listing < ApplicationRecord
                     area: "",
                     suburb: "Denistone West",
                     postCode: "2114",
-                    includeSurroundingSuburbs: true
+                    includeSurroundingSuburbs: false
                   },
                   {
                     state: "NSW",
@@ -120,7 +120,7 @@ class Listing < ApplicationRecord
                     area: "",
                     suburb: "Denistone East",
                     postCode: "2112",
-                    includeSurroundingSuburbs: true
+                    includeSurroundingSuburbs: false
                   },
                   {
                     state: "NSW",
@@ -128,7 +128,7 @@ class Listing < ApplicationRecord
                     area: "",
                     suburb: "Epping",
                     postCode: "2121",
-                    includeSurroundingSuburbs: true
+                    includeSurroundingSuburbs: false
                   },
                   {
                     state: "NSW",
@@ -136,7 +136,7 @@ class Listing < ApplicationRecord
                     area: "",
                     suburb: "Gladesville",
                     postCode: "2111",
-                    includeSurroundingSuburbs: true
+                    includeSurroundingSuburbs: false
                   },
                   {
                     state: "NSW",
@@ -144,7 +144,7 @@ class Listing < ApplicationRecord
                     area: "",
                     suburb: "Tennyson Point",
                     postCode: "2111",
-                    includeSurroundingSuburbs: true
+                    includeSurroundingSuburbs: false
                   },
                 ]
             }.to_json
@@ -153,7 +153,6 @@ class Listing < ApplicationRecord
         save_json_url(response_json)
     end
 
-    # Might need to reconsider the condition string checking for "duplex" and "development"
     def self.populate_strathfield_listings
         Listing.destroy_all
 
@@ -163,117 +162,69 @@ class Listing < ApplicationRecord
             :headers => { "content-type": "application/json", "X-API-Key": ENV["DOMAIN_API_KEY"]},
             :body => {
                 listingType: "Sale",
-                propertyTypes: ["House"],
-                minBedrooms: 1,
-                minBathrooms: 1,
+                propertyTypes: ["House", "DevelopmentSite", "NewHouseLand", "Duplex", "SemiDetached", "VacantLand" ],
+                minBedrooms: 0,
+                minBathrooms: 0,
                 minCarspaces: 0,
                 minLandArea: 600,
                 maxPrice: 2000000,
                 pageSize: 100,
                 locations: [
                     {
-                        state: "NSW",
-                        region: "",
-                        area: "",
-                        suburb: "Strathfield",
-                        postCode: "2135",
-                        includeSurroundingSuburbs: true
+                      state: "NSW",
+                      region: "",
+                      area: "",
+                      suburb: "Strathfield",
+                      postCode: "2135",
+                      includeSurroundingSuburbs: false
                     },
                     {
-                        state: "NSW",
-                        region: "",
-                        area: "",
-                        suburb: "Burwood",
-                        postCode: "2134",
-                        includeSurroundingSuburbs: true
+                      state: "NSW",
+                      region: "",
+                      area: "",
+                      suburb: "Strathfield South",
+                      postCode: "2136",
+                      includeSurroundingSuburbs: false
                     },
                     {
-                        state: "NSW",
-                        region: "",
-                        area: "",
-                        suburb: "Croydon",
-                        postCode: "2132",
-                        includeSurroundingSuburbs: true
+                      state: "NSW",
+                      region: "",
+                      area: "",
+                      suburb: "Chullora",
+                      postCode: "2190",
+                      includeSurroundingSuburbs: false
                     },
                     {
-                        state: "NSW",
-                        region: "",
-                        area: "",
-                        suburb: "Five Dock",
-                        postCode: "2046",
-                        includeSurroundingSuburbs: true
+                      state: "NSW",
+                      region: "",
+                      area: "",
+                      suburb: "Flemington",
+                      postCode: "2140",
+                      includeSurroundingSuburbs: false
                     },
                     {
-                        state: "NSW",
-                        region: "",
-                        area: "",
-                        suburb: "Haberfield",
-                        postCode: "2045",
-                        includeSurroundingSuburbs: true
+                      state: "NSW",
+                      region: "",
+                      area: "",
+                      suburb: "Greenacre",
+                      postCode: "2190",
+                      includeSurroundingSuburbs: false
                     },
                     {
-                        state: "NSW",
-                        region: "",
-                        area: "",
-                        suburb: "North Strathfield",
-                        postCode: "2137",
-                        includeSurroundingSuburbs: true
+                      state: "NSW",
+                      region: "",
+                      area: "",
+                      suburb: "Homebush",
+                      postCode: "2140",
+                      includeSurroundingSuburbs: false
                     },
                     {
-                        state: "NSW",
-                        region: "",
-                        area: "",
-                        suburb: "Homebush",
-                        postCode: "2140",
-                        includeSurroundingSuburbs: true
-                    },
-                    {
-                        state: "NSW",
-                        region: "",
-                        area: "",
-                        suburb: "Ashfield",
-                        postCode: "2131",
-                        includeSurroundingSuburbs: true
-                    },
-                    {
-                        state: "NSW",
-                        region: "",
-                        area: "",
-                        suburb: "Enfield",
-                        postCode: "2136",
-                        includeSurroundingSuburbs: true
-                    },
-                    {
-                        state: "NSW",
-                        region: "",
-                        area: "",
-                        suburb: "Burwood Heights",
-                        postCode: "2136",
-                        includeSurroundingSuburbs: true
-                    },
-                    {
-                        state: "NSW",
-                        region: "",
-                        area: "",
-                        suburb: "Strathfield South",
-                        postCode: "2136",
-                        includeSurroundingSuburbs: true
-                    },
-                    {
-                        state: "NSW",
-                        region: "",
-                        area: "",
-                        suburb: "Belfield",
-                        postCode: "2191",
-                        includeSurroundingSuburbs: true
-                    },
-                    {
-                        state: "NSW",
-                        region: "",
-                        area: "",
-                        suburb: "Croydon Park",
-                        postCode: "2133",
-                        includeSurroundingSuburbs: true
+                      state: "NSW",
+                      region: "",
+                      area: "",
+                      suburb: "Homebush West",
+                      postCode: "2140",
+                      includeSurroundingSuburbs: false
                     },
                 ]
             }.to_json
@@ -281,6 +232,78 @@ class Listing < ApplicationRecord
         response_json = JSON.parse(request.body)
         save_json_url(response_json)
     end
+
+    def self.populate_burwood_listings
+      Listing.destroy_all
+
+      search_endpoint = "https://api.domain.com.au/v1/listings/residential/_search"
+      request = HTTParty.post(
+          search_endpoint, 
+          :headers => { "content-type": "application/json", "X-API-Key": ENV["DOMAIN_API_KEY"]},
+          :body => {
+              listingType: "Sale",
+              propertyTypes: ["House", "DevelopmentSite", "NewHouseLand", "Duplex", "SemiDetached", "VacantLand" ],
+              minBedrooms: 0,
+              minBathrooms: 0,
+              minCarspaces: 0,
+              minLandArea: 600,
+              maxPrice: 2000000,
+              pageSize: 100,
+              locations: [
+                  {
+                    state: "NSW",
+                    region: "",
+                    area: "",
+                    suburb: "Burwood",
+                    postCode: "2134",
+                    includeSurroundingSuburbs: false
+                  },
+                  {
+                    state: "NSW",
+                    region: "",
+                    area: "",
+                    suburb: "Burwood Heights",
+                    postCode: "2136",
+                    includeSurroundingSuburbs: false
+                  },
+                  {
+                    state: "NSW",
+                    region: "",
+                    area: "",
+                    suburb: "Enfield",
+                    postCode: "2136",
+                    includeSurroundingSuburbs: false
+                  },
+                  {
+                    state: "NSW",
+                    region: "",
+                    area: "",
+                    suburb: "Enfield South",
+                    postCode: "2133",
+                    includeSurroundingSuburbs: false
+                  },
+                  {
+                    state: "NSW",
+                    region: "",
+                    area: "",
+                    suburb: "Croydon",
+                    postCode: "2132",
+                    includeSurroundingSuburbs: false
+                  },
+                  {
+                    state: "NSW",
+                    region: "",
+                    area: "",
+                    suburb: "Croydon Park",
+                    postCode: "2133",
+                    includeSurroundingSuburbs: false
+                  },
+              ]
+          }.to_json
+      )
+      response_json = JSON.parse(request.body)
+      save_json_url(response_json)
+  end
 
         
     def self.populate_parramatta_listings
@@ -292,9 +315,9 @@ class Listing < ApplicationRecord
         :headers => { "content-type": "application/json", "X-API-Key": ENV["DOMAIN_API_KEY"]},
         :body => {
           listingType: "Sale",
-          propertyTypes: ["House"],
-          minBedrooms: 1,
-          minBathrooms: 1,
+          propertyTypes: ["House", "DevelopmentSite", "NewHouseLand", "Duplex", "SemiDetached", "VacantLand" ],
+          minBedrooms: 0,
+          minBathrooms: 0,
           minCarspaces: 0,
           minLandArea: 600,
           maxPrice: 2200000,
@@ -306,7 +329,7 @@ class Listing < ApplicationRecord
               area: "",
               suburb: "Epping",
               postCode: "2121",
-              includeSurroundingSuburbs: true
+              includeSurroundingSuburbs: false
             },
             {
               state: "NSW",
@@ -314,7 +337,7 @@ class Listing < ApplicationRecord
               area: "",
               suburb: "Dundas Valley",
               postCode: "2117",
-              includeSurroundingSuburbs: true
+              includeSurroundingSuburbs: false
             },
             {
               state: "NSW",
@@ -322,7 +345,7 @@ class Listing < ApplicationRecord
               area: "",
               suburb: "Telopea",
               postCode: "2117",
-              includeSurroundingSuburbs: true
+              includeSurroundingSuburbs: false
             },
             {
               state: "NSW",
@@ -330,7 +353,7 @@ class Listing < ApplicationRecord
               area: "",
               suburb: "Melrose Park",
               postCode: "2114",
-              includeSurroundingSuburbs: true
+              includeSurroundingSuburbs: false
             },
             {
               state: "NSW",
@@ -338,7 +361,7 @@ class Listing < ApplicationRecord
               area: "",
               suburb: "Ermington",
               postCode: "2115",
-              includeSurroundingSuburbs: true
+              includeSurroundingSuburbs: false
             },
             {
               state: "NSW",
@@ -346,7 +369,7 @@ class Listing < ApplicationRecord
               area: "",
               suburb: "Rydalmere",
               postCode: "2116",
-              includeSurroundingSuburbs: true
+              includeSurroundingSuburbs: false
             },
             {
               state: "NSW",
@@ -354,7 +377,7 @@ class Listing < ApplicationRecord
               area: "",
               suburb: "Carlingford",
               postCode: "2118",
-              includeSurroundingSuburbs: true
+              includeSurroundingSuburbs: false
             },
             {
               state: "NSW",
@@ -362,7 +385,7 @@ class Listing < ApplicationRecord
               area: "",
               suburb: "Dundas",
               postCode: "2117",
-              includeSurroundingSuburbs: true
+              includeSurroundingSuburbs: false
             },
             {
               state: "NSW",
@@ -370,7 +393,7 @@ class Listing < ApplicationRecord
               area: "",
               suburb: "North Parramatta",
               postCode: "2151",
-              includeSurroundingSuburbs: true
+              includeSurroundingSuburbs: false
             },
             {
               state: "NSW",
@@ -378,7 +401,7 @@ class Listing < ApplicationRecord
               area: "",
               suburb: "Harris Park",
               postCode: "2150",
-              includeSurroundingSuburbs: true
+              includeSurroundingSuburbs: false
             },
             {
               state: "NSW",
@@ -386,7 +409,7 @@ class Listing < ApplicationRecord
               area: "",
               suburb: "Oatlands",
               postCode: "2117",
-              includeSurroundingSuburbs: true
+              includeSurroundingSuburbs: false
             },
             {
               state: "NSW",
@@ -394,7 +417,7 @@ class Listing < ApplicationRecord
               area: "",
               suburb: "North Rocks",
               postCode: "2151",
-              includeSurroundingSuburbs: true
+              includeSurroundingSuburbs: false
             },
           ]
         }.to_json
@@ -406,7 +429,7 @@ class Listing < ApplicationRecord
     private
 
     def self.save_json_url(response_json)
-        search_terms = ["duplex", "development", "redevelop", "stca", "develop"]
+        search_terms = ["duplex", "development", "redevelop", "stca", "develop", "r2", "r2 zoning", "r3", "r3 zoning"]
         response_json.map do |response_json_item|
             if ((response_json_item["listing"]["headline"].downcase || response_json_item["listing"]["summaryDescription"].downcase).match(Regexp.union(search_terms)))
                 listing = Listing.new
