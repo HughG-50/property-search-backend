@@ -303,8 +303,319 @@ class Listing < ApplicationRecord
       )
       response_json = JSON.parse(request.body)
       save_json_url(response_json)
-  end
+    end
 
+    def self.populate_canada_bay_listings
+      Listing.destroy_all
+
+      search_endpoint = "https://api.domain.com.au/v1/listings/residential/_search"
+      request = HTTParty.post(
+          search_endpoint, 
+          :headers => { "content-type": "application/json", "X-API-Key": ENV["DOMAIN_API_KEY"]},
+          :body => {
+              listingType: "Sale",
+              propertyTypes: ["House", "DevelopmentSite", "NewHouseLand", "Duplex", "SemiDetached", "VacantLand" ],
+              minBedrooms: 0,
+              minBathrooms: 0,
+              minCarspaces: 0,
+              minLandArea: 600,
+              maxPrice: 2000000,
+              pageSize: 100,
+              locations: [
+                  {
+                    state: "NSW",
+                    region: "",
+                    area: "",
+                    suburb: "Abbotsford",
+                    postCode: "2046",
+                    includeSurroundingSuburbs: false
+                  },
+                  {
+                    state: "NSW",
+                    region: "",
+                    area: "",
+                    suburb: "Breakfast Point",
+                    postCode: "2137",
+                    includeSurroundingSuburbs: false
+                  },
+                  {
+                    state: "NSW",
+                    region: "",
+                    area: "",
+                    suburb: "Cabarita",
+                    postCode: "2137",
+                    includeSurroundingSuburbs: false
+                  },
+                  {
+                    state: "NSW",
+                    region: "",
+                    area: "",
+                    suburb: "Canada Bay",
+                    postCode: "2046",
+                    includeSurroundingSuburbs: false
+                  },
+                  {
+                    state: "NSW",
+                    region: "",
+                    area: "",
+                    suburb: "Chiswick",
+                    postCode: "2046",
+                    includeSurroundingSuburbs: false
+                  },
+                  {
+                    state: "NSW",
+                    region: "",
+                    area: "",
+                    suburb: "Concord",
+                    postCode: "2137",
+                    includeSurroundingSuburbs: false
+                  },
+                  {
+                    state: "NSW",
+                    region: "",
+                    area: "",
+                    suburb: "Concord West",
+                    postCode: "2138",
+                    includeSurroundingSuburbs: false
+                  },
+                  {
+                    state: "NSW",
+                    region: "",
+                    area: "",
+                    suburb: "Drummoyne",
+                    postCode: "2047",
+                    includeSurroundingSuburbs: false
+                  },
+                  {
+                    state: "NSW",
+                    region: "",
+                    area: "",
+                    suburb: "Fice Dock",
+                    postCode: "2046",
+                    includeSurroundingSuburbs: false
+                  },
+                  {
+                    state: "NSW",
+                    region: "",
+                    area: "",
+                    suburb: "Liberty Grove",
+                    postCode: "2138",
+                    includeSurroundingSuburbs: false
+                  },
+                  {
+                    state: "NSW",
+                    region: "",
+                    area: "",
+                    suburb: "Mortlake",
+                    postCode: "2137",
+                    includeSurroundingSuburbs: false
+                  },
+                  {
+                    state: "NSW",
+                    region: "",
+                    area: "",
+                    suburb: "North Strathfield",
+                    postCode: "2137",
+                    includeSurroundingSuburbs: false
+                  },
+                  {
+                    state: "NSW",
+                    region: "",
+                    area: "",
+                    suburb: "Rhodes",
+                    postCode: "2138",
+                    includeSurroundingSuburbs: false
+                  },
+                  {
+                    state: "NSW",
+                    region: "",
+                    area: "",
+                    suburb: "Rodd Point",
+                    postCode: "2046",
+                    includeSurroundingSuburbs: false
+                  },
+                  {
+                    state: "NSW",
+                    region: "",
+                    area: "",
+                    suburb: "Russell Lea",
+                    postCode: "2046",
+                    includeSurroundingSuburbs: false
+                  },
+                  {
+                    state: "NSW",
+                    region: "",
+                    area: "",
+                    suburb: "Wareemba",
+                    postCode: "2046",
+                    includeSurroundingSuburbs: false
+                  },
+              ]
+          }.to_json
+      )
+      response_json = JSON.parse(request.body)
+      save_json_url(response_json)
+    end
+
+    def self.populate_inner_west_listings
+      Listing.destroy_all
+
+      search_endpoint = "https://api.domain.com.au/v1/listings/residential/_search"
+      request = HTTParty.post(
+          search_endpoint, 
+          :headers => { "content-type": "application/json", "X-API-Key": ENV["DOMAIN_API_KEY"]},
+          :body => {
+              listingType: "Sale",
+              propertyTypes: ["House", "DevelopmentSite", "NewHouseLand", "Duplex", "SemiDetached", "VacantLand" ],
+              minBedrooms: 0,
+              minBathrooms: 0,
+              minCarspaces: 0,
+              minLandArea: 600,
+              maxPrice: 2200000,
+              pageSize: 100,
+              locations: [
+                  {
+                    state: "NSW",
+                    region: "",
+                    area: "",
+                    suburb: "Annandale",
+                    postCode: "2038",
+                    includeSurroundingSuburbs: false
+                  },
+                  {
+                    state: "NSW",
+                    region: "",
+                    area: "",
+                    suburb: "Ashbury",
+                    postCode: "2193",
+                    includeSurroundingSuburbs: false
+                  },
+                  {
+                    state: "NSW",
+                    region: "",
+                    area: "",
+                    suburb: "Croydon",
+                    postCode: "2132",
+                    includeSurroundingSuburbs: false
+                  },
+                  {
+                    state: "NSW",
+                    region: "",
+                    area: "",
+                    suburb: "Dulwich Hill",
+                    postCode: "2203",
+                    includeSurroundingSuburbs: false
+                  },
+                  {
+                    state: "NSW",
+                    region: "",
+                    area: "",
+                    suburb: "Enmore",
+                    postCode: "2042",
+                    includeSurroundingSuburbs: false
+                  },
+                  {
+                    state: "NSW",
+                    region: "",
+                    area: "",
+                    suburb: "Haberfield",
+                    postCode: "2045",
+                    includeSurroundingSuburbs: false
+                  },
+                  {
+                    state: "NSW",
+                    region: "",
+                    area: "",
+                    suburb: "Hurlstone Park",
+                    postCode: "2193",
+                    includeSurroundingSuburbs: false
+                  },
+                  {
+                    state: "NSW",
+                    region: "",
+                    area: "",
+                    suburb: "Leichardt",
+                    postCode: "2040",
+                    includeSurroundingSuburbs: false
+                  },
+                  {
+                    state: "NSW",
+                    region: "",
+                    area: "",
+                    suburb: "Lewisham",
+                    postCode: "2049",
+                    includeSurroundingSuburbs: false
+                  },
+                  {
+                    state: "NSW",
+                    region: "",
+                    area: "",
+                    suburb: "Lilyfield",
+                    postCode: "2040",
+                    includeSurroundingSuburbs: false
+                  },
+                  {
+                    state: "NSW",
+                    region: "",
+                    area: "",
+                    suburb: "Marrickville",
+                    postCode: "2204",
+                    includeSurroundingSuburbs: false
+                  },
+                  {
+                    state: "NSW",
+                    region: "",
+                    area: "",
+                    suburb: "Newtown",
+                    postCode: "2042",
+                    includeSurroundingSuburbs: false
+                  },
+                  {
+                    state: "NSW",
+                    region: "",
+                    area: "",
+                    suburb: "Petersham",
+                    postCode: "2049",
+                    includeSurroundingSuburbs: false
+                  },
+                  {
+                    state: "NSW",
+                    region: "",
+                    area: "",
+                    suburb: "St Peters",
+                    postCode: "2044",
+                    includeSurroundingSuburbs: false
+                  },
+                  {
+                    state: "NSW",
+                    region: "",
+                    area: "",
+                    suburb: "Stanmore",
+                    postCode: "2048",
+                    includeSurroundingSuburbs: false
+                  },
+                  {
+                    state: "NSW",
+                    region: "",
+                    area: "",
+                    suburb: "Sydenham",
+                    postCode: "2044",
+                    includeSurroundingSuburbs: false
+                  },
+                  {
+                    state: "NSW",
+                    region: "",
+                    area: "",
+                    suburb: "Tempe",
+                    postCode: "2044",
+                    includeSurroundingSuburbs: false
+                  },
+              ]
+          }.to_json
+      )
+      response_json = JSON.parse(request.body)
+      save_json_url(response_json)
+    end
         
     def self.populate_parramatta_listings
       Listing.destroy_all
@@ -320,7 +631,7 @@ class Listing < ApplicationRecord
           minBathrooms: 0,
           minCarspaces: 0,
           minLandArea: 600,
-          maxPrice: 2200000,
+          maxPrice: 2100000,
           pageSize: 100,
           locations: [
             {
