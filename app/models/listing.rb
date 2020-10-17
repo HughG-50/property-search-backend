@@ -739,6 +739,10 @@ class Listing < ApplicationRecord
 
     private
 
+    # def self.get_frontage_value(listing)
+
+    # end
+
     def self.save_json_url(response_json)
         search_terms = ["duplex", "development", "redevelop", "stca", "develop", "r2", "r2 zoning", "r3", "r3 zoning"]
         response_json.map do |response_json_item|
