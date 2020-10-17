@@ -35,4 +35,31 @@ class ListingsController < ApplicationController
     render json: @listings
   end
 
+  # GET /listings/burwood
+  def burwood_index 
+    Listing.populate_burwood_listings
+
+    @listings = Listing.all
+
+    render json: @listings
+  end
+
+  # GET /listings/canada_bay
+  def canada_bay_index 
+    Listing.populate_canada_bay_listings
+
+    @listings = Listing.all
+
+    render json: @listings
+  end
+
+  # GET /listings/inner_west
+  def inner_west_index 
+    Listing.populate_inner_west_listings
+
+    @listings = Listing.all
+
+    render json: @listings
+  end
+
 end
