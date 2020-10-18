@@ -466,7 +466,7 @@ class Listing < ApplicationRecord
               maxPrice: 2200000,
               pageSize: 100,
               sort: {
-                sortKey: "DateListed",
+                sortKey: "DateUpdated",
                 direction: "Ascending",
               },
               locations: [
