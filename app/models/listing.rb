@@ -848,6 +848,7 @@ class Listing < ApplicationRecord
       return frontage_value
     end
 
+    # Check function
     def self.save_json_url(response_json)
       response_json.map do |response_json_item|
         listing = Listing.new
