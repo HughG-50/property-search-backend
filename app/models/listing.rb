@@ -839,36 +839,36 @@ class Listing < ApplicationRecord
 
     private
 
-    # def self.get_frontage_value(listing)
-
-    # end
+    def self.get_frontage_value(listing)
+      
+    end
 
     def self.save_json_url(response_json)
-        response_json.map do |response_json_item|
-            listing = Listing.new
-            listing.domain_listing_id = response_json_item["listing"]["id"]
-            listing.address = response_json_item["listing"]["propertyDetails"]["displayableAddress"]
-            listing.land_area = response_json_item["listing"]["propertyDetails"]["landArea"]
-            listing.headline_desc = response_json_item["listing"]["headline"]
-            listing.summary_desc = response_json_item["listing"]["summaryDescription"]
-            listing.display_price = response_json_item["listing"]["priceDetails"]["displayPrice"]
-            listing.agency_name = response_json_item["listing"]["advertiser"]["name"]
-            listing.agent = response_json_item["listing"]["advertiser"]["contacts"][0]["name"]
-            listing.save
-        end
+      response_json.map do |response_json_item|
+        listing = Listing.new
+        listing.domain_listing_id = response_json_item["listing"]["id"]
+        listing.address = response_json_item["listing"]["propertyDetails"]["displayableAddress"]
+        listing.land_area = response_json_item["listing"]["propertyDetails"]["landArea"]
+        listing.headline_desc = response_json_item["listing"]["headline"]
+        listing.summary_desc = response_json_item["listing"]["summaryDescription"]
+        listing.display_price = response_json_item["listing"]["priceDetails"]["displayPrice"]
+        listing.agency_name = response_json_item["listing"]["advertiser"]["name"]
+        listing.agent = response_json_item["listing"]["advertiser"]["contacts"][0]["name"]
+        listing.save
+      end
 
-        listings = Listing.all
-        for listing in listings 
-            i_listing_endpoint = "https://api.domain.com.au/v1/listings/#{listing.domain_listing_id}"
-            request = HTTParty.get(
-                i_listing_endpoint, 
-                :headers => { "content-type": "application/json", "X-API-Key": ENV["DOMAIN_API_KEY"]}
-            )
-            resp_listing_json = JSON.parse(request.body)
+      listings = Listing.all
+      for listing in listings 
+        i_listing_endpoint = "https://api.domain.com.au/v1/listings/#{listing.domain_listing_id}"
+        request = HTTParty.get(
+          i_listing_endpoint, 
+          :headers => { "content-type": "application/json", "X-API-Key": ENV["DOMAIN_API_KEY"]}
+        )
+        resp_listing_json = JSON.parse(request.body)
 
-            listing.listing_url = resp_listing_json["seoUrl"]
-            listing.save
-        end
+        listing.listing_url = resp_listing_json["seoUrl"]
+        listing.save
+      end
     end
 
 end
