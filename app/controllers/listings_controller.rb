@@ -62,4 +62,13 @@ class ListingsController < ApplicationController
     render json: @listings
   end
 
+  # GET /listings/canterbury
+  def canterbury_index 
+    Listing.populate_canterbury_listings
+
+    @listings = Listing.all
+
+    render json: @listings
+  end
+
 end

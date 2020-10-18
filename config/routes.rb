@@ -7,4 +7,5 @@ Rails.application.routes.draw do
   get 'listings/burwood', to: 'listings#burwood_index'
   get 'listings/canada_bay', to: 'listings#canada_bay_index'
   get 'listings/inner_west', to: 'listings#inner_west_index'
+  get 'listings/canterbury', to: 'listings#canterbury_index'
 end

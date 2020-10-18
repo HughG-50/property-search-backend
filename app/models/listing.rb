@@ -465,6 +465,10 @@ class Listing < ApplicationRecord
               minLandArea: 600,
               maxPrice: 2200000,
               pageSize: 100,
+              sort: {
+                sortKey: "DateListed",
+                direction: "Ascending",
+              },
               locations: [
                   {
                     state: "NSW",
@@ -724,6 +728,86 @@ class Listing < ApplicationRecord
             },
           ]
         }.to_json
+      )
+      response_json = JSON.parse(request.body)
+      save_json_url(response_json)
+    end
+
+    def self.populate_canterbury_listings
+      Listing.destroy_all
+
+      search_endpoint = "https://api.domain.com.au/v1/listings/residential/_search"
+      request = HTTParty.post(
+          search_endpoint, 
+          :headers => { "content-type": "application/json", "X-API-Key": ENV["DOMAIN_API_KEY"]},
+          :body => {
+              listingType: "Sale",
+              propertyTypes: ["House", "DevelopmentSite", "NewHouseLand", "Duplex", "SemiDetached", "VacantLand" ],
+              minBedrooms: 0,
+              minBathrooms: 0,
+              minCarspaces: 0,
+              minLandArea: 600,
+              maxPrice: 2000000,
+              pageSize: 100,
+              locations: [
+                  {
+                    state: "NSW",
+                    region: "",
+                    area: "",
+                    suburb: "Belfield",
+                    postCode: "2191",
+                    includeSurroundingSuburbs: false
+                  },
+                  {
+                    state: "NSW",
+                    region: "",
+                    area: "",
+                    suburb: "Campsie",
+                    postCode: "2194",
+                    includeSurroundingSuburbs: false
+                  },
+                  {
+                    state: "NSW",
+                    region: "",
+                    area: "",
+                    suburb: "Undercliffe",
+                    postCode: "2206",
+                    includeSurroundingSuburbs: false
+                  },
+                  {
+                    state: "NSW",
+                    region: "",
+                    area: "",
+                    suburb: "Earlwood",
+                    postCode: "2206",
+                    includeSurroundingSuburbs: false
+                  },
+                  {
+                    state: "NSW",
+                    region: "",
+                    area: "",
+                    suburb: "Canterbury",
+                    postCode: "2193",
+                    includeSurroundingSuburbs: false
+                  },
+                  {
+                    state: "NSW",
+                    region: "",
+                    area: "",
+                    suburb: "Clemton Park",
+                    postCode: "2206",
+                    includeSurroundingSuburbs: false
+                  },
+                  {
+                    state: "NSW",
+                    region: "",
+                    area: "",
+                    suburb: "Belmore",
+                    postCode: "2192",
+                    includeSurroundingSuburbs: false
+                  },
+              ]
+          }.to_json
       )
       response_json = JSON.parse(request.body)
       save_json_url(response_json)
