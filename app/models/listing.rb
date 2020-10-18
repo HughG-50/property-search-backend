@@ -840,7 +840,7 @@ class Listing < ApplicationRecord
     private
 
     def self.get_frontage_value(listing)
-      
+
     end
 
     def self.save_json_url(response_json)
@@ -867,6 +867,11 @@ class Listing < ApplicationRecord
         resp_listing_json = JSON.parse(request.body)
 
         listing.listing_url = resp_listing_json["seoUrl"]
+        listing.listing_desc = resp_listing_json["description"]
+        listing.listing_status = resp_listing_json["status"]
+        listing.sale_method = resp_listing_json["saleDetails"]["saleMethod"]
+        listing.auction_location = resp_listing_json["saleDetails"]["auctionDetails"]["auctionSchedule"]["locationDescription"]
+        listing.auction_time = resp_listing_json["saleDetails"]["auctionDetails"]["auctionSchedule"]["openingDateTime"]
         listing.save
       end
     end

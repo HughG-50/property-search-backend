@@ -10,9 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-# blah blah blah
-
-ActiveRecord::Schema.define(version: 2020_08_23_114947) do
+ActiveRecord::Schema.define(version: 2020_10_18_025151) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +27,12 @@ ActiveRecord::Schema.define(version: 2020_08_23_114947) do
     t.string "agent"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "listing_desc"
+    t.string "frontage"
+    t.string "listing_status"
+    t.string "sale_method"
+    t.string "auction_location"
+    t.string "auction_time"
   end
 
 end
