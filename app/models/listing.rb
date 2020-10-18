@@ -842,9 +842,9 @@ class Listing < ApplicationRecord
     def self.get_frontage_value(str)
       frontage_value = "N/A"
       strMatch = /\b([0-9]{1,2})(\.([0-9]{1,2}))?m\b/.match(str)
-      if(strMatch){
+      if strMatch
         frontage_value = strMatch
-      }
+      end
       return frontage_value
     end
 
@@ -875,8 +875,8 @@ class Listing < ApplicationRecord
         listing.listing_desc = resp_listing_json["description"]
         listing.listing_status = resp_listing_json["status"]
         listing.sale_method = resp_listing_json["saleDetails"]["saleMethod"]
-        listing.auction_location = resp_listing_json["saleDetails"]["auctionDetails"]["auctionSchedule"]["locationDescription"]
-        listing.auction_time = resp_listing_json["saleDetails"]["auctionDetails"]["auctionSchedule"]["openingDateTime"]
+        listing.auction_location = (resp_listing_json["saleDetails"]["auctionDetails"] && resp_listing_json["saleDetails"]["auctionDetails"]["auctionSchedule"]["locationDescription"])
+        listing.auction_time = (resp_listing_json["saleDetails"]["auctionDetails"] && resp_listing_json["saleDetails"]["auctionDetails"]["auctionSchedule"]["openingDateTime"])
         listing.frontage = get_frontage_value(resp_listing_json["description"])
         listing.save
       end
