@@ -17,6 +17,10 @@ class Listing < ApplicationRecord
                 minLandArea: 750,
                 maxPrice: 2200000,
                 pageSize: 100,
+                sort: {
+                  sortKey: "DateUpdated",
+                  direction: "Ascending",
+                },
                 locations: [
                   {
                     state: "NSW",
@@ -161,6 +165,10 @@ class Listing < ApplicationRecord
                 minLandArea: 600,
                 maxPrice: 2000000,
                 pageSize: 100,
+                sort: {
+                  sortKey: "DateUpdated",
+                  direction: "Ascending",
+                },
                 locations: [
                     {
                       state: "NSW",
@@ -241,6 +249,10 @@ class Listing < ApplicationRecord
               minLandArea: 600,
               maxPrice: 2000000,
               pageSize: 100,
+              sort: {
+                sortKey: "DateUpdated",
+                direction: "Ascending",
+              },
               locations: [
                   {
                     state: "NSW",
@@ -313,6 +325,10 @@ class Listing < ApplicationRecord
               minLandArea: 600,
               maxPrice: 2000000,
               pageSize: 100,
+              sort: {
+                sortKey: "DateUpdated",
+                direction: "Ascending",
+              },
               locations: [
                   {
                     state: "NSW",
@@ -629,6 +645,10 @@ class Listing < ApplicationRecord
           minLandArea: 600,
           maxPrice: 2100000,
           pageSize: 100,
+          sort: {
+            sortKey: "DateUpdated",
+            direction: "Ascending",
+          },
           locations: [
             {
               state: "NSW",
@@ -749,6 +769,10 @@ class Listing < ApplicationRecord
               minLandArea: 600,
               maxPrice: 2000000,
               pageSize: 100,
+              sort: {
+                sortKey: "DateUpdated",
+                direction: "Ascending",
+              },
               locations: [
                   {
                     state: "NSW",
@@ -820,22 +844,18 @@ class Listing < ApplicationRecord
     # end
 
     def self.save_json_url(response_json)
-        # search_terms = ["duplex", "development", "redevelop", "stca", "develop", "r2", "r2 zoning", "r3", "r3 zoning"]
         response_json.map do |response_json_item|
-            # if ((response_json_item["listing"]["headline"].downcase || response_json_item["listing"]["summaryDescription"].downcase).match(Regexp.union(search_terms)))
-                listing = Listing.new
-                listing.domain_listing_id = response_json_item["listing"]["id"]
-                listing.address = response_json_item["listing"]["propertyDetails"]["displayableAddress"]
-                listing.land_area = response_json_item["listing"]["propertyDetails"]["landArea"]
-                listing.headline_desc = response_json_item["listing"]["headline"]
-                listing.summary_desc = response_json_item["listing"]["summaryDescription"]
-                listing.display_price = response_json_item["listing"]["priceDetails"]["displayPrice"]
-                listing.agency_name = response_json_item["listing"]["advertiser"]["name"]
-                listing.agent = response_json_item["listing"]["advertiser"]["contacts"][0]["name"]
-                listing.save
-            # end
+            listing = Listing.new
+            listing.domain_listing_id = response_json_item["listing"]["id"]
+            listing.address = response_json_item["listing"]["propertyDetails"]["displayableAddress"]
+            listing.land_area = response_json_item["listing"]["propertyDetails"]["landArea"]
+            listing.headline_desc = response_json_item["listing"]["headline"]
+            listing.summary_desc = response_json_item["listing"]["summaryDescription"]
+            listing.display_price = response_json_item["listing"]["priceDetails"]["displayPrice"]
+            listing.agency_name = response_json_item["listing"]["advertiser"]["name"]
+            listing.agent = response_json_item["listing"]["advertiser"]["contacts"][0]["name"]
+            listing.save
         end
-
 
         listings = Listing.all
         for listing in listings 
