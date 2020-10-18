@@ -839,8 +839,13 @@ class Listing < ApplicationRecord
 
     private
 
-    def self.get_frontage_value(listing)
-
+    def self.get_frontage_value(str)
+      frontage_value = "N/A"
+      strMatch = /\b([0-9]{1,2})(\.([0-9]{1,2}))?m\b/.match(str)
+      if(strMatch){
+        frontage_value = strMatch
+      }
+      return frontage_value
     end
 
     def self.save_json_url(response_json)
@@ -872,8 +877,8 @@ class Listing < ApplicationRecord
         listing.sale_method = resp_listing_json["saleDetails"]["saleMethod"]
         listing.auction_location = resp_listing_json["saleDetails"]["auctionDetails"]["auctionSchedule"]["locationDescription"]
         listing.auction_time = resp_listing_json["saleDetails"]["auctionDetails"]["auctionSchedule"]["openingDateTime"]
+        listing.frontage = get_frontage_value(resp_listing_json["description"])
         listing.save
       end
     end
-
 end
