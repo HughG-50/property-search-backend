@@ -841,8 +841,8 @@ class Listing < ApplicationRecord
 
     def self.get_frontage_value(str)
       frontage_value = "N/A"
-      str_match_1 = /\b([0-9]{1,2})(\.([0-9]{1,2}))?m\b/.match(str)
-      str_match_2 = /\b([0-9]{2})(\.([0-9]{1,2}))? (metres?)\b/.match(str)
+      str_match_1 = /\b([0-3][0-9])(\.([0-9]{1,2}))?m\b/.match(str)
+      str_match_2 = /\b([0-3][0-9])(\.([0-9]{1,2}))? (metres?)\b/.match(str)
       if str_match_1 
         frontage_value = str_match_1
       elsif str_match_2
