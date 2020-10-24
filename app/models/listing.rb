@@ -862,7 +862,9 @@ class Listing < ApplicationRecord
         listing.summary_desc = response_json_item["listing"]["summaryDescription"]
         listing.display_price = response_json_item["listing"]["priceDetails"]["displayPrice"]
         listing.agency_name = response_json_item["listing"]["advertiser"]["name"]
-        listing.agent = response_json_item["listing"]["advertiser"]["contacts"][0]["name"]
+        if response_json_item["listing"]["advertiser"]["contacts"][0]
+          listing.agent = response_json_item["listing"]["advertiser"]["contacts"][0]["name"]
+        end
         listing.save
       end
 
