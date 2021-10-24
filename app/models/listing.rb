@@ -887,6 +887,7 @@ class Listing < ApplicationRecord
       )
       response_json = JSON.parse(request.body)
       save_json_url(response_json)
+    end
 
     private
 
