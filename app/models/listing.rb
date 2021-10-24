@@ -852,7 +852,7 @@ class Listing < ApplicationRecord
               minCarspaces: 0,
               minLandArea: 500,
               maxPrice: 600000,
-              pageSize: 100,
+              pageSize: 1,
               sort: {
                 sortKey: "DateUpdated",
                 direction: "Ascending",
@@ -914,9 +914,9 @@ class Listing < ApplicationRecord
         listing.summary_desc = response_json_item["listing"]["summaryDescription"]
         listing.display_price = response_json_item["listing"]["priceDetails"]["displayPrice"]
         listing.agency_name = response_json_item["listing"]["advertiser"]["name"]
-        listing.beds = response_json_item["listing"]["bedrooms"]
-        listing.baths = response_json_item["listing"]["bathrooms"]
-        listing.car_spaces = response_json_item["listing"]["carspaces"]
+        listing.beds = response_json_item["listing"]["propertyDetails"]["bedrooms"]
+        listing.baths = response_json_item["listing"]["propertyDetails"]["bathrooms"]
+        listing.car_spaces = response_json_item["listing"]["propertyDetails"]["carspaces"]
         if response_json_item["listing"]["advertiser"]["contacts"][0]
           listing.agent = response_json_item["listing"]["advertiser"]["contacts"][0]["name"]
         end
