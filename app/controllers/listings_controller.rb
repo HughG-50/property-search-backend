@@ -71,4 +71,13 @@ class ListingsController < ApplicationController
     render json: @listings
   end
 
+  # GET /listings/logan
+  def logan_index
+    Listing.populate_logan_listings
+
+    @listings = Listing.all
+
+    render json: @listings
+  end
+
 end

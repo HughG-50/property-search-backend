@@ -837,6 +837,57 @@ class Listing < ApplicationRecord
       save_json_url(response_json)
     end
 
+    def self.populate_logan_listings
+      Listing.destroy_all
+
+      search_endpoint = "https://api.domain.com.au/v1/listings/residential/_search"
+      request = HTTParty.post(
+          search_endpoint, 
+          :headers => { "content-type": "application/json", "X-API-Key": ENV["DOMAIN_API_KEY"]},
+          :body => {
+              listingType: "Sale",
+              propertyTypes: ["House", "DevelopmentSite", "NewHouseLand", "Duplex", "SemiDetached", "VacantLand" ],
+              minBedrooms: 3,
+              minBathrooms: 0,
+              minCarspaces: 0,
+              minLandArea: 500,
+              maxPrice: 600000,
+              pageSize: 100,
+              sort: {
+                sortKey: "DateUpdated",
+                direction: "Ascending",
+              },
+              locations: [
+                  {
+                    state: "QLD",
+                    region: "",
+                    area: "",
+                    suburb: "Crestmead",
+                    postCode: "4132",
+                    includeSurroundingSuburbs: true
+                  },
+                  {
+                    state: "QLD",
+                    region: "",
+                    area: "",
+                    suburb: "Boronia Heights",
+                    postCode: "4124",
+                    includeSurroundingSuburbs: true
+                  },
+                  {
+                    state: "QLD",
+                    region: "",
+                    area: "",
+                    suburb: "Eden's Landing",
+                    postCode: "4207",
+                    includeSurroundingSuburbs: true
+                  }
+              ]
+          }.to_json
+      )
+      response_json = JSON.parse(request.body)
+      save_json_url(response_json)
+
     private
 
     def self.get_frontage_value(str)
