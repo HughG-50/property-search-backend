@@ -914,6 +914,9 @@ class Listing < ApplicationRecord
         listing.summary_desc = response_json_item["listing"]["summaryDescription"]
         listing.display_price = response_json_item["listing"]["priceDetails"]["displayPrice"]
         listing.agency_name = response_json_item["listing"]["advertiser"]["name"]
+        listing.beds = response_json_item["listing"]["bedrooms"]
+        listing.baths = response_json_item["listing"]["bathrooms"]
+        listing.car_spaces = response_json_item["listing"]["carspaces"]
         if response_json_item["listing"]["advertiser"]["contacts"][0]
           listing.agent = response_json_item["listing"]["advertiser"]["contacts"][0]["name"]
         end
