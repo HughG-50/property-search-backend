@@ -852,7 +852,7 @@ class Listing < ApplicationRecord
               minCarspaces: 0,
               minLandArea: 500,
               maxPrice: 600000,
-              pageSize: 50,
+              pageSize: 100,
               sort: {
                 sortKey: "DateUpdated",
                 direction: "Ascending",
